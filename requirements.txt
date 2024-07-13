@@ -1,0 +1,12 @@
+langchain[docarray]
+langchain_experimental
+openai
+pypdf
+tiktoken
+duckduckgo_search
+streamlit
+unstructured
+pandoc  # needs system install as well!
+chromadb
+pandoc
+          
