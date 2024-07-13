@@ -9,15 +9,14 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.schema import BaseRetriever, Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import DocArrayInMemorySearch
+import streamlit as st
 
 from utils import MEMORY, load_document
 
 logging.basicConfig(encoding="utf-8", level=logging.INFO)
 LOGGER = logging.getLogger()
 import os
-from dotenv import load_dotenv
-load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
+api_key = st.secrets["OPENAI_API_KEY"]
 
 # Setup LLM and QA chain; set temperature low to keep hallucinations in check
 LLM = ChatOpenAI(
@@ -31,7 +30,7 @@ def configure_retriever(docs: list[Document]) -> BaseRetriever:
     splits = text_splitter.split_documents(docs)
 
     # Create embeddings and store in vectordb:
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(openai_api_key=api_key)
     # Create vectordb with single call to embedding model for texts:
     vectordb = DocArrayInMemorySearch.from_documents(splits, embeddings)
     return vectordb.as_retriever(
