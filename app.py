@@ -6,13 +6,11 @@ from streamlit.external.langchain import StreamlitCallbackHandler
 from chat_with_documents import configure_retrieval_chain
 from utils import MEMORY, DocumentLoader
 
-
-
 logging.basicConfig(encoding="utf-8", level=logging.INFO)
 LOGGER = logging.getLogger()
 
 st.set_page_config(page_title="LangChain: Chat with Documents", page_icon="🦜")
-st.header("🦜 LangChain: Chat with Documents")
+st.title("🦜 LangChain: Chat with Documents")
 
 # Add instructions on how to use the app
 st.markdown("""

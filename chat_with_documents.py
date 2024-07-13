@@ -30,7 +30,7 @@ def configure_retriever(docs: list[Document]) -> BaseRetriever:
     splits = text_splitter.split_documents(docs)
 
     # Create embeddings and store in vectordb:
-    embeddings = OpenAIEmbeddings(openai_api_key=api_key)
+    embeddings = OpenAIEmbeddings()
     # Create vectordb with single call to embedding model for texts:
     vectordb = DocArrayInMemorySearch.from_documents(splits, embeddings)
     return vectordb.as_retriever(
