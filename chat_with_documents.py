@@ -8,7 +8,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.schema import BaseRetriever, Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import DocArrayInMemorySearch
+from langchain.vectorstores import Chroma
 import streamlit as st
 
 from utils import MEMORY, load_document
@@ -30,7 +30,7 @@ def configure_retriever(docs: list[Document]) -> BaseRetriever:
     # Create embeddings and store in vectordb:
     embeddings = OpenAIEmbeddings(openai_api_key=api_key)
     # Create vectordb with single call to embedding model for texts:
-    vectordb = DocArrayInMemorySearch.from_documents(splits, embeddings)
+    vectordb = Chroma.from_documents(splits, embeddings)
     return vectordb.as_retriever(
         search_type="mmr", search_kwargs={
             "k": 5,
