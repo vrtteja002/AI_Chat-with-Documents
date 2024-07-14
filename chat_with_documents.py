@@ -15,12 +15,10 @@ from utils import MEMORY, load_document
 
 logging.basicConfig(encoding="utf-8", level=logging.INFO)
 LOGGER = logging.getLogger()
-import os
 api_key = st.secrets["OPENAI_API_KEY"]
-
 # Setup LLM and QA chain; set temperature low to keep hallucinations in check
 LLM = ChatOpenAI(
-    model_name="gpt-3.5-turbo", temperature=0, streaming=True, openai_api_key=api_key
+    model_name="gpt-3.5-turbo", temperature=0.5, streaming=True, openai_api_key=api_key
 )
 
 def configure_retriever(docs: list[Document]) -> BaseRetriever:
@@ -55,9 +53,9 @@ def configure_chain(retriever: BaseRetriever):
 def configure_retrieval_chain(uploaded_files):
     """Read documents, configure retriever, and the chain."""
     docs = []
-    temp_dir = tempfile.TemporaryDirectory()
-    for file in uploaded_files:
-        temp_filepath = os.path.join(temp_dir.name, file.name)
+    with tempfile.TemporaryDirectory() as temp_dir:
+      for file in uploaded_files:
+        temp_filepath = os.path.join(temp_dir, file.name)
         with open(temp_filepath, "wb") as f:
             f.write(file.getvalue())
         docs.extend(load_document(temp_filepath))
@@ -65,3 +63,4 @@ def configure_retrieval_chain(uploaded_files):
     retriever = configure_retriever(docs=docs)
     chain = configure_chain(retriever=retriever)
     return chain
+

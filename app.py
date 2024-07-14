@@ -10,7 +10,7 @@ logging.basicConfig(encoding="utf-8", level=logging.INFO)
 LOGGER = logging.getLogger()
 
 st.set_page_config(page_title="LangChain: Chat with Documents", page_icon="🦜")
-st.title("🦜 LangChain: Chat with Documents")
+st.header("🦜 LangChain: Chat with Documents")
 
 # Add instructions on how to use the app
 st.markdown("""
