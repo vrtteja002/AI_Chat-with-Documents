@@ -18,7 +18,7 @@ LOGGER = logging.getLogger()
 api_key = st.secrets["OPENAI_API_KEY"]
 # Setup LLM and QA chain; set temperature low to keep hallucinations in check
 LLM = ChatOpenAI(
-    model_name="gpt-3.5-turbo", temperature=0.5, streaming=True, openai_api_key=api_key
+    model_name="gpt-4o-mini", temperature=0.5, streaming=True, openai_api_key=api_key
 )
 
 def configure_retriever(docs: list[Document]) -> BaseRetriever:
@@ -34,7 +34,7 @@ def configure_retriever(docs: list[Document]) -> BaseRetriever:
     return vectordb.as_retriever(
         search_type="mmr", search_kwargs={
             "k": 5,
-            "fetch_k": 7,
+            "fetch_k": 10,
             "include_metadata": True
         },
     )
