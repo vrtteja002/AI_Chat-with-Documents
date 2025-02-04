@@ -8,5 +8,5 @@ streamlit
 unstructured
 pandoc  # needs system install as well!
 chromadb
-pandoc
+sqlite3 >= 3.35.0.
           
