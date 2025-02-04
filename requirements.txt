@@ -7,6 +7,6 @@ duckduckgo_search
 streamlit
 unstructured
 pandoc  # needs system install as well!
-chromadb
+chromadb==0.3.29
 sqlite3 >= 3.35.0.
           
